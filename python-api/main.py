@@ -1,21 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import requests
+from typing import Literal
 
 app = FastAPI()
 
 BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compond/"
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@app.get("/cid_from_name/{name}")
-def get_cid_from_name(name: str):
-    result = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{name}/cids/json")
-    return result.json()
-
 @app.get("/properties_from_cid/{cid}")
-def get_properties_from_cid(cid: int):
+def get_properties_from_cid(cid: int) -> dict:
     response = {}
     request = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/{cid}/JSON/")
     for section in request.json()["Record"]["Section"]:
@@ -34,3 +26,16 @@ def get_properties_from_cid(cid: int):
                             else:
                                 response[subsubsection["TOCHeading"]].append(information["Value"]["Number"][0])
     return response
+
+@app.get("/properties/{nametype}/{name}")
+def get_properties(nametype: Literal["name", "smiles"], name: str):
+    response = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{nametype}/{name}/cids/json")
+    print(response.status_code)
+    match response.status_code:
+        case 200:
+            cid = response.json()["IdentifierList"]["CID"][0]
+            return get_properties_from_cid(cid)
+        case 400:
+            return HTTPException(status_code=400, detail="Проверьте, правильно ли выбран тип поиска и название.")
+        case 404:
+            return HTTPException(status_code=404, detail="Нет вещества по заданному названию.")
