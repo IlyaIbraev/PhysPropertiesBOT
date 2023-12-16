@@ -1,2 +1,2 @@
 # PhysPropertiesBOT
-Telegram bot with enhanced PubChem PUG REST
+Telegram bot with adapted PubChem PUG REST
