@@ -4,8 +4,6 @@ from typing import Literal
 
 app = FastAPI()
 
-BASE = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compond/"
-
 @app.get("/properties_from_cid/{cid}")
 def get_properties_from_cid(cid: int) -> dict:
     response = {}
@@ -30,7 +28,6 @@ def get_properties_from_cid(cid: int) -> dict:
 @app.get("/properties/{nametype}/{name}")
 def get_properties(nametype: Literal["name", "smiles"], name: str):
     response = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{nametype}/{name}/cids/json")
-    print(response.status_code)
     match response.status_code:
         case 200:
             cid = response.json()["IdentifierList"]["CID"][0]
@@ -39,3 +36,4 @@ def get_properties(nametype: Literal["name", "smiles"], name: str):
             return HTTPException(status_code=400, detail="Проверьте, правильно ли выбран тип поиска и название.")
         case 404:
             return HTTPException(status_code=404, detail="Нет вещества по заданному названию.")
+        
