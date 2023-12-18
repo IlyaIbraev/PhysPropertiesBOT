@@ -11,7 +11,7 @@ import asyncio
 
 dp = Dispatcher()
 
-TOKEN = "2019051844:AAHECSV_1GAHqjPD-ifUYKOXqA55SxvL66s"
+TOKEN = ""
 
 # HANDLERS
 
