@@ -2,39 +2,43 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.redis import RedisStorage, Redis
 from config_data.config import Config, load_config
 from handlers import other_handlers, user_handlers
 
-# Инициализируем логгер
+# Логгер
 logger = logging.getLogger(__name__)
 
 
-# Функция конфигурирования и запуска бота
+# Конфигурирование и инициализация бота
 async def main():
-    # Конфигурируем логирование
+    # Конфигурирование логгера
     logging.basicConfig(
         level=logging.INFO,
         format='%(filename)s:%(lineno)d #%(levelname)-8s '
                '[%(asctime)s] - %(name)s - %(message)s')
 
-    # Выводим в консоль информацию о начале запуска бота
+    # Оповещение о том, что бот запущен
     logger.info('Starting bot')
 
-    # Загружаем конфиг в переменную config
+    # Загругза конфигурации бота из .env
     config: Config = load_config()
 
-    # Инициализируем бот и диспетчер
-    bot = Bot(token=config.tg_bot.token)
-    dp = Dispatcher()
+    # Инициализация долгосрочного хранилища Redis
+    redis = Redis(host='localhost')
+    storage = RedisStorage(redis=redis)
 
-    # Регистриуем роутеры в диспетчере
+    # Инициализация бота и диспетчера
+    bot = Bot(token=config.tg_bot.token)
+    dp = Dispatcher(storage=storage)
+
+    # Регистрация роутеров
     dp.include_router(user_handlers.router)
     dp.include_router(other_handlers.router)
 
-    # Пропускаем накопившиеся апдейты и запускаем polling
-    await bot.delete_webhook(drop_pending_updates=True)
+    # Запуск лонг пула
     await dp.start_polling(bot)
 
-
+# Запуск main в асинхронном режиме (требует asyncio)
 if __name__ == '__main__':
     asyncio.run(main())
