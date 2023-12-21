@@ -11,10 +11,6 @@ from services.services import (
 
 router = APIRouter()
 
-@router.get("/")
-async def default_handler():
-    return {"status": "OK"}
-
 @router.get("/properties_from_cid/{cid}")
 async def handle_properties_from_cid(cid: int) -> dict:
     data = await get_properties_from_db_by_cid(cid=cid)
