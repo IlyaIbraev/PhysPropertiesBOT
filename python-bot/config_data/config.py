@@ -3,11 +3,10 @@ from environs import Env
 
 
 @dataclass
-class DatabaseConfig:
-    database: str         # Название базы данных
-    db_host: str          # URL-адрес базы данных
-    db_user: str          # Username пользователя базы данных
-    db_password: str      # Пароль к базе данных
+class RedisConfig:
+    host: str
+    port: str
+    db: str
 
 
 @dataclass
@@ -23,7 +22,7 @@ class PersonalPUBChemAPI:
 @dataclass
 class Config:
     tg_bot: TgBot
-    db: DatabaseConfig
+    redis: RedisConfig
     api: PersonalPUBChemAPI
 
 
@@ -35,16 +34,15 @@ def load_config(path: str | None = None) -> Config:
     return Config(
         tg_bot=TgBot(
             token=env('BOT_TOKEN'),
-            admin_ids=list(map(int, env.list('ADMIN_IDS')))
+            admin_ids=list(map(int, env.list('ADMIN_IDS'))),
         ),
-        db=DatabaseConfig(
-            database=env('DATABASE'),
-            db_host=env('DB_HOST'),
-            db_user=env('DB_USER'),
-            db_password=env('DB_PASSWORD')
+        redis=RedisConfig(
+            host=env('REDIS_HOST'),
+            port=env('REDIS_PORT'),
+            db=env('REDIS_DB'),
         ),
         api=PersonalPUBChemAPI(
             url=env('API_URL'),
-            port=env('API_PORT')
+            port=env('API_PORT'),
         )
     )
