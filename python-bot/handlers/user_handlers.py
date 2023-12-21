@@ -6,7 +6,7 @@ from aiogram import Bot
 
 from keyboards.keyboards import create_molecule_keyboard
 from lexicon.lexicon_ru import LEXICON_RU
-from services.services import get_bot_choice, get_properties, get_winner
+from services.services import get_properties
 from filters.registration_filter import RegistrationForm
 
 router = Router()
