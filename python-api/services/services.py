@@ -5,7 +5,8 @@ async def get_properties_by_cid(cid: int) -> dict:
         async with session.get(
             f"https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/{cid}/JSON/",
         ) as response:
-            response_json = await response.json(encoding="CP866")
+            response_json = await response.json(encoding="windows-1251")
+            # response_json = await response.json(encoding="CP866")
     data = {}
     data["CID"] = cid
     data["Name"] = response_json["Record"]["RecordTitle"]
