@@ -1,7 +1,7 @@
 from aiogram import F, Router
 from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, ReplyKeyboardRemove
 from aiogram import Bot
 
 from keyboards.keyboards import create_molecule_keyboard
@@ -13,10 +13,11 @@ router = Router()
 
 # /start
 @router.message(CommandStart())
-async def process_start_command(message: Message, state: FSMContext):
+async def process_start_command(message: Message, state: FSMContext, bot: Bot):
     await state.update_data(nametype="name")
     await state.set_state(RegistrationForm.registration_completed)
-    await message.answer(text=LEXICON_RU['/start'])
+    await message.answer(text=LEXICON_RU['/start'], reply_markup=ReplyKeyboardRemove())
+
 
 # registration check
 @router.message(~StateFilter(RegistrationForm.registration_completed))
