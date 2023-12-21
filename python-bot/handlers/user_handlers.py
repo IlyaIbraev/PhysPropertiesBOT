@@ -49,7 +49,7 @@ async def process_get_properties(message: Message, state: FSMContext):
     user_data = await state.get_data()
     nametype = user_data["nametype"]
     # Получение информации по веществу и статусу ответа
-    response_data, status = get_properties(nametype, name)
+    response_data, status = await get_properties(nametype, name)
     
     # Обработка статуса
     match status:
@@ -70,7 +70,7 @@ async def process_get_properties(message: Message, state: FSMContext):
 @router.callback_query(F.data.startswith("select:"))
 async def process_select_callback(callback: CallbackQuery, state: FSMContext, bot: Bot):
     # Получение информации по веществу по CID
-    response_data, _ = get_properties("cid", callback.data.split(":")[1])
+    response_data, _ = await get_properties("cid", callback.data.split(":")[1])
     # Полученеи свойств вещества
     property = response_data["Properties"][callback.data.split(":")[2]]
     # Формирование ответа

@@ -1,11 +1,13 @@
-import requests
 from config_data.config import load_config
+import aiohttp
 
 # Возвращает JSON ответ с названием, CIDом и свойствами, а так же status_code
-def get_properties(nametype, name) -> str:
+async def get_properties(nametype, name) -> str:
     # Получение url для обращения к API
     api = load_config().api
-    response = requests.get(
-        f"{api.url}:{api.port}/properties/{nametype}/{name}"
-    )
-    return response.json(), response.status_code
+    # Асинхронное обращение к API
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            f"{api.url}:{api.port}/properties/{nametype}/{name}"
+        ) as response:
+            return await response.json(encoding="Windows-1252"), response.status
