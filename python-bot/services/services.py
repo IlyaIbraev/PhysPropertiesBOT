@@ -10,4 +10,4 @@ async def get_properties(nametype, name) -> str:
         async with session.get(
             f"{api.url}:{api.port}/properties/{nametype}/{name}"
         ) as response:
-            return await response.json(encoding="Windows-1252"), response.status
+            return await response.json(), response.status
