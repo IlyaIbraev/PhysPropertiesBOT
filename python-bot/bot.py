@@ -25,7 +25,11 @@ async def main():
     config: Config = load_config()
 
     # Инициализация долгосрочного хранилища Redis
-    redis = Redis(host='localhost')
+    redis = Redis(
+        host=config.redis.host, 
+        port=config.redis.port, 
+        db=config.redis.db
+    )
     storage = RedisStorage(redis=redis)
 
     # Инициализация бота и диспетчера
