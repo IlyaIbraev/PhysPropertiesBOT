@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from environs import Env
+from os import environ
 
 
 @dataclass
@@ -15,14 +15,11 @@ class Config:
 
 def load_config(path: str | None = None) -> Config:
 
-    env: Env = Env()
-    env.read_env(path)
-
     return Config(
         db_config=PostgreSQLConfig(
-            host=env('DB_HOST'),
-            username=env('DB_USER'),
-            password=env('DB_PASSWORD'),
-            dbname=env('DB_NAME'),
+            host=environ.get('DB_HOST'),
+            username=environ.get('DB_USER'),
+            password=environ.get('DB_PASSWORD'),
+            dbname=environ.get('DB_NAME'),
         )
     )

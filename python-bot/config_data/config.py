@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from environs import Env
-
+# from environs import Env
+from os import environ
 
 @dataclass
 class RedisConfig:
@@ -28,21 +28,18 @@ class Config:
 
 def load_config(path: str | None = None) -> Config:
 
-    env: Env = Env()
-    env.read_env(path)
-
     return Config(
         tg_bot=TgBot(
-            token=env('BOT_TOKEN'),
-            admin_ids=list(map(int, env.list('ADMIN_IDS'))),
+            token=environ.get('BOT_TOKEN'),
+            admin_ids=environ.get('ADMIN_IDS'),
         ),
         redis=RedisConfig(
-            host=env('REDIS_HOST'),
-            port=env('REDIS_PORT'),
-            db=env('REDIS_DB'),
+            host=environ.get('REDIS_HOST'),
+            port=environ.get('REDIS_PORT'),
+            db=environ.get('REDIS_DB'),
         ),
         api=PersonalPUBChemAPI(
-            url=env('API_URL'),
-            port=env('API_PORT'),
+            url=environ.get('API_URL'),
+            port=environ.get('API_PORT'),
         )
     )
