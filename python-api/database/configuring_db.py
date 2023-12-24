@@ -5,8 +5,12 @@ import asyncio
 
 config: Config = load_config()
 
+db_configured = False
+
 async def prepare_database() -> None:
-    print("CONF")
+    global db_configured
+    if db_configured:
+        return
     conn = await asyncpg.connect(
         "postgresql://{}:{}@{}/{}".format(
             config.db_config.username, 
@@ -30,8 +34,5 @@ async def prepare_database() -> None:
         ''')
     except:
         pass
-
-# async def main():
-#     await prepare_database()
-
-# asyncio.run(main())
+    db_configured = True
+    return 

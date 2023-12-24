@@ -8,6 +8,6 @@ async def get_properties(nametype, name) -> str:
     # Асинхронное обращение к API
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            f"{api.url}:{api.port}/properties/{nametype}/{name}"
+            f"http://{api.url}:{api.port}/properties/{nametype}/{name}"
         ) as response:
             return await response.json(), response.status

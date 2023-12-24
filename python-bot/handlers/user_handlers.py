@@ -30,7 +30,7 @@ async def process_start_command(message: Message, state: FSMContext, bot: Bot):
 @router.message(~StateFilter(RegistrationForm.registration_completed))
 async def process_nonregister(message: Message, state: FSMContext):
     data = await state.get_data()
-    await message.answer(text=LEXICON[data["language"]]['unregistered'])
+    await message.answer(text=LEXICON["EN"]['unregistered'])
 
 # /russian
 @router.message(Command(commands="russian"))

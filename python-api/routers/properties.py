@@ -8,11 +8,13 @@ from services.services import (
     get_cid_by_name,
     get_properties_by_cid
 )
+from database.configuring_db import prepare_database
 
 router = APIRouter()
 
 @router.get("/properties_from_cid/{cid}")
 async def handle_properties_from_cid(cid: int) -> dict:
+    await prepare_database()
     data = await get_properties_from_db_by_cid(cid=cid)
     if data:
         return data
