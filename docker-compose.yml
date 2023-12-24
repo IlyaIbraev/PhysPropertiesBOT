@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./python-api
+    ports:
+      - 8000:8000
+    env_file:
+      - .env.api
+    depends_on:
+      - db
+    networks:
+      - backend
+  bot:
+    build: ./python-bot
+    env_file:
+      - .env.bot
+    depends_on:
+      - redis
+    networks:
+      - cache
+      - backend
+    expose:
+      - 8000
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/docker/volumes/
+    networks:
+      - backend
+    env_file:
+      - .env.db
+  redis:
+    image: redis:7.2.3-alpine3.19
+    volumes:
+      - redis_data:/var/lib/docker/volumes/
+    networks:
+      - cache
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  backend:
+  cache:
