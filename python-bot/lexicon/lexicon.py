@@ -19,7 +19,7 @@ LEXICON: dict[str, str] = {
     "/help": "/name - search by name;\n/smiles - search by SMILES nomenclature.",
     "/name": "You have switched to search mode by substance. For example, <pre>acetone</pre>",
     "/smiles": "You have switched to search mode by SMILES nomenclature. For example, <pre>CC(=O)C</pre>",
-    "finder_200": "<b>{}</b>\Select the properties you are interested in:",
+    "finder_200": "<b>{}</b>\nSelect the properties you are interested in:",
     "finder_400": "You are using characters that are not allowed for searching in this mode. Change mode: /name or /smiles",
     "finder_404": "There is no such substance. Change mode: /name or /smiles",
     "answer_too_long": "The answer is too large to display in this window. We sent him to chat.",
