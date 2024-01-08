@@ -47,7 +47,7 @@ input[type="text"] {
 }
 
 button,
-input[type="button"] {
+input[type="submit"] {
     appearance: none;
     border: 0;
     border-radius: 5px;
