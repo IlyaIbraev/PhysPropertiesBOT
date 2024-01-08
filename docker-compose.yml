@@ -11,6 +11,14 @@ services:
       - db
     networks:
       - backend
+  front:
+    build: ./react-front
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    networks:
+      - backend
   bot:
     build: ./python-bot
     env_file:
@@ -40,6 +48,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+
 
 networks:
   backend:
