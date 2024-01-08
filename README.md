@@ -5,6 +5,7 @@ Do you urgently need any physical properties of a chemical compound? I present T
 
 - [API](#api-based-on-pug-rest)
 - [BOT](#telegrambot)
+- [FRONTEND](#frontend-using-react)
 - [Docker](#deploy-using-docker)
 
 
@@ -107,7 +108,39 @@ source venv/bin/activate
 ```
 python bot.py
 ```
+## Frontend using React
+<img src='images/react-front.png' width='250'>
+Web app with the ability to search for a chemical substance by its name or SMILES nomenclature, as well as obtain its physical properties and descriptors. Performs a call to the API based on PUG REST contained in this repository.
 
+### Technologies
+- React 20.10.0
+
+### Possibilities
+- Finding the structure of a substance by its name.
+- Switch between search modes by SMILES or NAME.
+- Retrieve available physical properties and descriptors by given name or SMILES.
+
+### Realisation
+- The bot accesses the API based on PUG REST, described in the previous section.
+
+### How to start
+
+- In the .env environment, create the following variables (change if necessary):
+```
+REACT_APP_API_URL = http://localhost:8000
+```
+- Build app (also need for Docker):
+```
+npm run build
+```
+- Run builded app:
+```
+serve -s build
+```
+- Or just run:
+```
+npm run start
+```
 ## Deploy using Docker
 - Set up the following .env files:
 ```
@@ -115,6 +148,7 @@ python bot.py
 .env.bot (.env.bot.example as example)
 .env.db
 ```
+- Build react-frontend app.
 - Run:
 ```
 docker-compose up -d --build
