@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/physpropertiesbot/static/css/main.bd419d4a.css",
-    "main.js": "/physpropertiesbot/static/js/main.48baed58.js",
-    "static/js/787.55b63fd6.chunk.js": "/physpropertiesbot/static/js/787.55b63fd6.chunk.js",
-    "service-worker.js": "/physpropertiesbot/service-worker.js",
-    "index.html": "/physpropertiesbot/index.html",
-    "main.bd419d4a.css.map": "/physpropertiesbot/static/css/main.bd419d4a.css.map",
-    "main.48baed58.js.map": "/physpropertiesbot/static/js/main.48baed58.js.map",
-    "787.55b63fd6.chunk.js.map": "/physpropertiesbot/static/js/787.55b63fd6.chunk.js.map"
+    "main.css": "/PhysPropertiesBOT/static/css/main.bd419d4a.css",
+    "main.js": "/PhysPropertiesBOT/static/js/main.0e5aa895.js",
+    "static/js/787.55b63fd6.chunk.js": "/PhysPropertiesBOT/static/js/787.55b63fd6.chunk.js",
+    "service-worker.js": "/PhysPropertiesBOT/service-worker.js",
+    "index.html": "/PhysPropertiesBOT/index.html",
+    "main.bd419d4a.css.map": "/PhysPropertiesBOT/static/css/main.bd419d4a.css.map",
+    "main.0e5aa895.js.map": "/PhysPropertiesBOT/static/js/main.0e5aa895.js.map",
+    "787.55b63fd6.chunk.js.map": "/PhysPropertiesBOT/static/js/787.55b63fd6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bd419d4a.css",
-    "static/js/main.48baed58.js"
+    "static/js/main.0e5aa895.js"
   ]
 }
