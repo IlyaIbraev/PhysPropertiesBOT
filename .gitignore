@@ -4,4 +4,3 @@ venv
 */.env
 .env.bot
 node_modules
-# build
