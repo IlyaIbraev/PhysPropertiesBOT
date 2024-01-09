@@ -116,6 +116,7 @@ Web app with the ability to search for a chemical substance by its name or SMILE
 - React 20.10.0
 
 ### Possibilities
+- Install as PWA app.
 - Finding the structure of a substance by its name.
 - Switch between search modes by SMILES or NAME.
 - Retrieve available physical properties and descriptors by given name or SMILES.
